@@ -38,10 +38,11 @@ def decode_lines(lines: list[str]) -> int:
 
 def main():
     input_lines = Path(sys.argv[1]).read_text().splitlines() if len(sys.argv) > 1 else example_input_lines
-    input_lines2 = Path(sys.argv[2]).read_text().splitlines() if len(sys.argv) > 2 else example_input_lines2
     print("Part 1: ", decode_lines(input_lines))
-    resolve_spelling(input_lines2)
-    print("Part 2: ", decode_lines(input_lines2))
+    if len(sys.argv) < 2:
+        input_lines = example_input_lines2
+    resolve_spelling(input_lines)
+    print("Part 2: ", decode_lines(input_lines))
 
 
 if __name__ == "__main__":
