@@ -1,2 +1,2 @@
-# Advent of Code 2022 solutions in 🐍 Python.
+# Advent of Code 2023 solutions in 🐍 Python.
 
