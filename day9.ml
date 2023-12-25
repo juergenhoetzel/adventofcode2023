@@ -1,13 +1,4 @@
-let example_input = String.split_on_char '\n' "0 3 6 9 12 15
-1 3 6 10 15 21
-10 13 16 21 30 45"
-
-let input_txt =                 (* FIXME: Use params *)
-  In_channel.(open_text "input.txt" |> input_lines)
-
 let parse_input lines = List.map (fun line -> Str.split (Str.regexp "[ \t]+") line |> List.map int_of_string) lines
-
-module Intset = Set.Make(Int)
 
 let is_zerolist xs = List.filter ((<>) 0) xs |> List.length = 0
 
@@ -33,6 +24,9 @@ let continue_line xs =
 let part_1 input_str =
   List.map continue_line (parse_input input_str) |> List.map last |> sum
 
+let example_input = String.split_on_char '\n' "0 3 6 9 12 15
+1 3 6 10 15 21
+10 13 16 21 30 45"
 
 let () =
   let input_str = match Sys.argv with
