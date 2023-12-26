@@ -21,8 +21,20 @@ let continue_line xs =
   let x = diff_list xs |> List.map last |> sum in
   xs @ [x]
 
+let prepend_line xs =
+  let x = diff_list xs
+          |> List.map List.hd
+          |> List.fold_left (fun acc x -> (x-acc)) 0 in
+  x::xs
+
+
+
 let part_1 input_str =
   List.map continue_line (parse_input input_str) |> List.map last |> sum
+
+let part_2 input_str =
+  List.map prepend_line (parse_input input_str) |> List.map List.hd |> sum
+
 
 let example_input = String.split_on_char '\n' "0 3 6 9 12 15
 1 3 6 10 15 21
@@ -32,7 +44,8 @@ let () =
   let input_str = match Sys.argv with
     |  [| _; file_name |] -> In_channel.(open_text file_name |> input_lines) (* FIXME: File handle leak *)
     | _ -> example_input in
-  Printf.printf "Part 1: %d\n" (part_1 input_str)
+  Printf.printf "Part 1: %d\n" (part_1 input_str);
+  Printf.printf "Part 2: %d\n" (part_2 input_str)
 
 (* Local Variables: *)
 (* compile-command: "ocamlfind ocamlopt -o day9 -linkpkg -package str day9.ml" *)
