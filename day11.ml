@@ -26,14 +26,14 @@ let galaxy_combinations image =
   iter positions
 
 
-let galaxy_difference image ((y1, x1),(y2, x2)) =
+let galaxy_difference scale image ((y1, x1),(y2, x2)) =
   let empty_x = n_empty_cols image (min x1 x2) (max x1 x2) in
   let empty_y = n_empty_rows image (min y1 y2) (max y1 y2) in
-  (abs (x1-x2)) + (abs (y2 - y1))  + empty_x + empty_y
+  (abs (x1-x2)) + (abs (y2 - y1))  + (empty_x + empty_y)*scale  -empty_x - empty_y
 
-let part1 image =
+let sum_differences scale image =
   galaxy_combinations image
-  |> List.map (fun comb -> galaxy_difference image comb) |> List.fold_left (+) 0
+  |> List.map (fun comb -> galaxy_difference scale image comb) |> List.fold_left (+) 0
 
 let example_input = "...#......
 .......#..
@@ -51,7 +51,8 @@ let () =
     | [|_; file_name |] -> In_channel.(with_open_text file_name  input_all|> String.trim) |> parse
     | [|_|] -> parse example_input
     | _ -> failwith "Too many args" in
-  Printf.printf "Part1: %d\n" (part1 image);
+  Printf.printf "Part1: %d\n" (sum_differences 2 image);
+  Printf.printf "Part2: %d\n" (sum_differences 1000000 image)
 
 (* Local Variables: *)
 (* compile-command: "ocamlfind ocamlopt -o day11 day11.ml" *)
